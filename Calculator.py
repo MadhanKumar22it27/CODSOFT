@@ -1,80 +1,121 @@
+import tkinter as tk
+from tkinter import messagebox
+
 import math
 
-def add(x, y):
-    return x + y
+def add():
+    try:
+        num1 = float(entry_num1.get())
+        num2 = float(entry_num2.get())
+        result = num1 + num2
+        lbl_result.config(text=f"Result: {result}")
+    except ValueError:
+        messagebox.showerror("Error", "Invalid input. Please enter valid numbers.")
 
-def subtract(x, y):
-    return x - y
+def subtract():
+    try:
+        num1 = float(entry_num1.get())
+        num2 = float(entry_num2.get())
+        result = num1 - num2
+        lbl_result.config(text=f"Result: {result}")
+    except ValueError:
+        messagebox.showerror("Error", "Invalid input. Please enter valid numbers.")
 
-def multiply(x, y):
-    return x * y
+def multiply():
+    try:
+        num1 = float(entry_num1.get())
+        num2 = float(entry_num2.get())
+        result = num1 * num2
+        lbl_result.config(text=f"Result: {result}")
+    except ValueError:
+        messagebox.showerror("Error", "Invalid input. Please enter valid numbers.")
 
-def divide(x, y):
-    if y == 0:
-        return "Error! Division by zero."
-    else:
-        return x / y
-
-def exponentiate(x, y):
-    return x ** y
-
-def square_root(x):
-    if x < 0:
-        return "Error! Cannot calculate square root of a negative number."
-    else:
-        return math.sqrt(x)
-
-def factorial(x):
-    if x < 0:
-        return "Error! Cannot calculate factorial of a negative number."
-    elif x == 0 or x == 1:
-        return 1
-    else:
-        return x * factorial(x - 1)
-
-def main():
-    while True:
-        print("\nAdvanced Calculator Menu:")
-        print("1. Add")
-        print("2. Subtract")
-        print("3. Multiply")
-        print("4. Divide")
-        print("5. Exponentiate")
-        print("6. Square Root")
-        print("7. Factorial")
-        print("8. Quit")
-        
-        choice = input("\nEnter your choice (1-8): ")
-        
-        if choice in ('1', '2', '3', '4', '5'):
-            num1 = float(input("Enter first number: "))
-            num2 = float(input("Enter second number: "))
-            
-            if choice == '1':
-                print("Result:", add(num1, num2))
-            elif choice == '2':
-                print("Result:", subtract(num1, num2))
-            elif choice == '3':
-                print("Result:", multiply(num1, num2))
-            elif choice == '4':
-                print("Result:", divide(num1, num2))
-            elif choice == '5':
-                print("Result:", exponentiate(num1, num2))
-                
-        elif choice in ('6', '7'):
-            num = float(input("Enter a number: "))
-            
-            if choice == '6':
-                print("Result:", square_root(num))
-            elif choice == '7':
-                print("Result:", factorial(int(num)))
-                
-        elif choice == '8':
-            print("Exiting Advanced Calculator. Goodbye!")
-            break
-            
+def divide():
+    try:
+        num1 = float(entry_num1.get())
+        num2 = float(entry_num2.get())
+        if num2 == 0:
+            messagebox.showerror("Error", "Division by zero is not allowed.")
         else:
-            print("Invalid input. Please try again.")
+            result = num1 / num2
+            lbl_result.config(text=f"Result: {result}")
+    except ValueError:
+        messagebox.showerror("Error", "Invalid input. Please enter valid numbers.")
 
-if __name__ == "__main__":
-    main()
+def exponentiate():
+    try:
+        num1 = float(entry_num1.get())
+        num2 = float(entry_num2.get())
+        result = num1 ** num2
+        lbl_result.config(text=f"Result: {result}")
+    except ValueError:
+        messagebox.showerror("Error", "Invalid input. Please enter valid numbers.")
+
+def square_root():
+    try:
+        num = float(entry_num.get())
+        if num < 0:
+            messagebox.showerror("Error", "Cannot calculate square root of a negative number.")
+        else:
+            result = math.sqrt(num)
+            lbl_result.config(text=f"Result: {result}")
+    except ValueError:
+        messagebox.showerror("Error", "Invalid input. Please enter a valid number.")
+
+def factorial():
+    try:
+        num = int(entry_num.get())
+        if num < 0:
+            messagebox.showerror("Error", "Cannot calculate factorial of a negative number.")
+        else:
+            result = math.factorial(num)
+            lbl_result.config(text=f"Result: {result}")
+    except ValueError:
+        messagebox.showerror("Error", "Invalid input. Please enter a valid integer.")
+
+root = tk.Tk()
+root.title("Advanced Calculator")
+
+entry_num1 = tk.Entry(root)
+entry_num1.grid(row=0, column=1)
+
+entry_num2 = tk.Entry(root)
+entry_num2.grid(row=1, column=1)
+
+entry_num = tk.Entry(root)
+entry_num.grid(row=2, column=1)
+
+lbl_num1 = tk.Label(root, text="Number 1:")
+lbl_num1.grid(row=0, column=0)
+
+lbl_num2 = tk.Label(root, text="Number 2:")
+lbl_num2.grid(row=1, column=0)
+
+lbl_num = tk.Label(root, text="Number:")
+lbl_num.grid(row=2, column=0)
+
+lbl_result = tk.Label(root, text="Result:")
+lbl_result.grid(row=4, column=0, columnspan=2)
+
+btn_add = tk.Button(root, text="Add", command=add)
+btn_add.grid(row=3, column=0)
+
+btn_subtract = tk.Button(root, text="Subtract", command=subtract)
+btn_subtract.grid(row=3, column=1)
+
+btn_multiply = tk.Button(root, text="Multiply", command=multiply)
+btn_multiply.grid(row=3, column=2)
+
+btn_divide = tk.Button(root, text="Divide", command=divide)
+btn_divide.grid(row=3, column=3)
+
+btn_exponentiate = tk.Button(root, text="Exponentiate", command=exponentiate)
+btn_exponentiate.grid(row=3, column=4)
+
+btn_square_root = tk.Button(root, text="Square Root", command=square_root)
+btn_square_root.grid(row=3, column=5)
+
+btn_factorial = tk.Button(root, text="Factorial", command=factorial)
+btn_factorial.grid(row=3, column=6)
+
+root.mainloop()
